@@ -16,23 +16,3 @@
 * 偏导数
 
 写完这个后，我会整理成一份论文，作为选修课的作业。
-
-```flow
-gameStart=>start: 开始游戏
-newBoard=>operation: 新建棋盘
-isWin=>condition: 是否有赢家
-isFull=>condition: 是否下满了
-inMove=>inputoutput: 输入
-judgeMove=>condition: 是否可下
-makeMove=>operation: 下子
-nextPlayer=>operation: 交换下子方
-gameEnd=>end: 游戏结束
-
-gameStart->newBoard->isWin
-isWin(yes)->gameEnd
-isWin(no)->isFull
-isFull(yes)->gameEnd
-isFull(no)->inMove->judgeMove
-judgeMove(no)->inMove
-judgeMove(yes)->makeMove->nextPlayer->isWin
-```
