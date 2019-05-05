@@ -47,5 +47,36 @@ def judgeMove(board, move):
     else:
         return False
 
-def makeMove(board, move):
-    
+def makeMove(board, move, player=1):
+    """下子，player参数默认为1"""
+    if not judgeMove(move):
+        return False
+    else:
+        if np.sum(board[1])>np.sum(board[2]):
+            board[2][move]=1
+            board[0][move]=0
+            return True
+        elif np.sum(board[1])<np.sum(board[2]):
+            board[1][move]=1
+            board[0][move]=0
+            return True
+        elif player==1 or play=="A":
+            board[1][move]=1
+            board[0][move]=0
+            return True
+        elif player==0 or play=="B":
+            board[2][move]=1
+            board[0][move]=0
+            return True
+    return False
+
+def visualize(board):
+    """将棋盘可视化输出"""
+    vision=[' ' for i in range(0, 10) ]
+    for i in range(0, 10):
+        if board[1][i]==1:
+            vision[i]='x'
+    for i in range(0, 10):
+        if board[2][i]==1:
+            vision[i]='o'
+    output="-----------\n"+vision[0]+" | "+vision[1]+" | "+vision[2]+" |\n"
