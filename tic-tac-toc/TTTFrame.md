@@ -4,7 +4,7 @@
 
 # 实现方法
 
-我设想有两种方法：灰度法和01法。01法更符合直觉，故采用该法。
+我设想有两种方法：灰度法和01法。01法更符合直觉，故采用该法。而灰度法有个好处就是可以借用图像识别的程序，当作一种分类任务。
 
 ## 灰度法
 
@@ -42,7 +42,7 @@ input=numpy.resize(board,(1,27))
 
 # 程序
 
-见TTTFrame.py，这里只给出函数原型：
+详情见TTTFrame.py，这里只给出函数原型：
 
 ~~~python
 def initBoard():
@@ -62,5 +62,37 @@ def judgePlayer(player):
 
 def judgeAll(board):
     """判断谁赢，用0表示打平，1表示A赢，-1表示B赢"""
+
+def judgeMove(board, move):
+    """判断能否走那一个格"""
+
+def makeMove(board, move, player=1):
+    """下子，有限制"""
+
+def visualize(board):
+    """将棋盘可视化输出"""
 ~~~
 
+下面给出流程图：
+
+```flow
+gameStart=>start: 开始游戏
+newBoard=>operation: 新建棋盘
+isWin=>condition: 是否有赢家
+isFull=>condition: 是否下满了
+inMove=>inputoutput: 输入棋子
+judgeMove=>condition: 是否可下
+makeMove=>operation: 下子
+nextPlayer=>operation: 交换下子方
+gameEnd=>end: 游戏结束
+
+gameStart->newBoard->isWin
+isWin(yes)->gameEnd
+isWin(no)->isFull
+isFull(yes)->gameEnd
+isFull(no)->inMove->judgeMove
+judgeMove(no)->inMove
+judgeMove(yes)->makeMove->nextPlayer->isWin
+```
+
+可见，我们的AI将作用于`输入棋子`处。当然，这个程序也可以用来和你的朋友对战~

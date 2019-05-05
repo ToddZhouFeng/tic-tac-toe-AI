@@ -22,34 +22,35 @@ def getPlayerB(board):
 def judgePlayer(player):
     """判断输赢，用1表示赢，0未赢"""
     for i in range(0,3):
-        if player[i*3]==player[i*3+1] and play[i*3+1]==player[i*3+2]:#横
+        if player[i*3]==player[i*3+1]==player[i*3+2]==1:#横
             return 1
-        if player[i]==player[i+3] and play[i+3]==player[i+6]:#竖
+        if player[i]==player[i+3]==player[i+6]==1:#竖
             return 1
-    if player[2]==player[4] and player[4]==player[6]:#捺
+    if player[2]==player[4]==player[6]==1:#捺
         return 1
-    elif player[0]==player[4] and player[4]==play[8]:#撇
+    elif player[0]==player[4]==play[8]==1:#撇
         return 1
+    return 0
 
 def judgeAll(board):
     """判断谁赢，用0表示打平，1表示A赢，-1表示B赢"""
-    if judgePlayer(getPlayerA[board]):
+    if judgePlayer(getPlayerA(board)):
         return 1
-    elif judgePlayer(getPlayerB[board]):
+    elif judgePlayer(getPlayerB(board)):
         return -1
     else:
         return 0
 
 def judgeMove(board, move):
     """判断能否走那一个格"""
-    if move in getEmpty(board):
+    if getEmpty(board)[move]==0:
         return True
     else:
         return False
 
 def makeMove(board, move, player=1):
-    """下子，player参数默认为1"""
-    if not judgeMove(move):
+    """下子，有限制"""
+    if not judgeMove(board, move):
         return False
     else:
         if np.sum(board[1])>np.sum(board[2]):
@@ -60,11 +61,11 @@ def makeMove(board, move, player=1):
             board[1][move]=1
             board[0][move]=0
             return True
-        elif player==1 or play=="A":
+        elif player==1 or player=="A":
             board[1][move]=1
             board[0][move]=0
             return True
-        elif player==0 or play=="B":
+        elif player==-1 or player==2 or player=="B":#推荐用-1表示玩家B，也可用2表示玩家B
             board[2][move]=1
             board[0][move]=0
             return True
@@ -72,11 +73,25 @@ def makeMove(board, move, player=1):
 
 def visualize(board):
     """将棋盘可视化输出"""
-    vision=[' ' for i in range(0, 10) ]
-    for i in range(0, 10):
+    vision=[' ' for i in range(0, 9) ]
+    for i in range(0, 9):
         if board[1][i]==1:
             vision[i]='x'
-    for i in range(0, 10):
+    for i in range(0, 9):
         if board[2][i]==1:
             vision[i]='o'
-    output="-----------\n"+vision[0]+" | "+vision[1]+" | "+vision[2]+" |\n"
+    output="---------\n "+vision[0]+" | "+vision[1]+" | "+vision[2]+" \n "\
+            +"---------\n "+vision[3]+" | "+vision[4]+" | "+vision[5]+" \n "\
+            +"---------\n "+vision[6]+" | "+vision[7]+" | "+vision[8]+" \n "
+    print(output)
+
+
+board=initBoard();
+makeMove(board,0,1)
+makeMove(board,4,2)
+makeMove(board,3,1)
+makeMove(board,8,2)
+makeMove(board,6,1)
+visualize(board)
+print(judgeAll(board))
+
