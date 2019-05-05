@@ -74,25 +74,7 @@ def visualize(board):
 ~~~
 
 下面给出流程图：
+![流程图](/tic-tac-toe-AI/TTTFrame.PNG "流程图")
 
-```flow
-gameStart=>start: 开始游戏
-newBoard=>operation: 新建棋盘
-isWin=>condition: 是否有赢家
-isFull=>condition: 是否下满了
-inMove=>inputoutput: 输入棋子
-judgeMove=>condition: 是否可下
-makeMove=>operation: 下子
-nextPlayer=>operation: 交换下子方
-gameEnd=>end: 游戏结束
-
-gameStart->newBoard->isWin
-isWin(yes)->gameEnd
-isWin(no)->isFull
-isFull(yes)->gameEnd
-isFull(no)->inMove->judgeMove
-judgeMove(no)->inMove
-judgeMove(yes)->makeMove->nextPlayer->isWin
-```
 
 可见，我们的AI将作用于`输入棋子`处。当然，这个程序也可以用来和你的朋友对战~
