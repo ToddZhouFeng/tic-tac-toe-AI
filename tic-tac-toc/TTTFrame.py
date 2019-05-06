@@ -5,7 +5,13 @@ import numpy as np
 
 def initBoard():
     """初始化棋盘"""
-    return np.array( [ [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]) #好像array内不支持[0 for i int (0, 10)]的形式
+    return np.array( [ [1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]) #好像array内不支持[0 for i int (0, 10)]的形式
+
+def isEmpty(board):
+    """判断其棋盘是否为空"""
+    if np.sum(board[0])>0:
+        return False
+    return True
 
 def getEmpty(board):
     """返回棋盘中的空格"""
@@ -28,7 +34,7 @@ def judgePlayer(player):
             return 1
     if player[2]==player[4]==player[6]==1:#捺
         return 1
-    elif player[0]==player[4]==play[8]==1:#撇
+    elif player[0]==player[4]==player[8]==1:#撇
         return 1
     return 0
 
@@ -37,13 +43,13 @@ def judgeAll(board):
     if judgePlayer(getPlayerA(board)):
         return 1
     elif judgePlayer(getPlayerB(board)):
-        return -1
+        return 2
     else:
         return 0
 
 def judgeMove(board, move):
     """判断能否走那一个格"""
-    if getEmpty(board)[move]==0:
+    if getEmpty(board)[move]==1:
         return True
     else:
         return False
@@ -85,13 +91,37 @@ def visualize(board):
             +"---------\n "+vision[6]+" | "+vision[7]+" | "+vision[8]+" \n "
     print(output)
 
+def rotate(board, time=1):
+    """将棋盘逆时针旋转，默认旋转一次，不改变原棋盘"""
+    newboard=initBoard()
+    for i in range(0,3):
+        temp=np.reshape(board[i], (3,3))
+        temp=np.rot90(temp, time)
+        newboard[i]=temp.flat
+    return newboard
 
-board=initBoard();
-makeMove(board,0,1)
-makeMove(board,4,2)
-makeMove(board,3,1)
-makeMove(board,8,2)
-makeMove(board,6,1)
+def mirror(board, axis='y'):
+    """将棋盘沿axis轴镜面对称，默认为y轴"""
+    newboard=initBoard()
+    trans=np.array([[0, 0, 1], [0, 1, 0], [1, 0, 0]])
+    if axis=='y':
+        for i in range(0,3):
+            temp=np.reshape(board[i], (3,3))
+            temp=np.dot(temp, trans)
+            newboard[i]=temp.flat
+    else:
+        for i in range(0,3):
+            temp=np.reshape(board[i], (3,3))
+            temp=np.dot(trans, temp)
+            newboard[i]=temp.flat
+    return newboard
+
+"""
+board=np.array( [ [0, 0, 1, 1, 1, 1, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1]])
 visualize(board)
-print(judgeAll(board))
+newboard=mirror(board,'x')
+visualize(newboard)
+"""
+
+
 

@@ -1,4 +1,4 @@
-# tic-tac-toc-AI
+# tic-tac-toe-AI
 
 所有的内容都基于《深度学习入门——基于Python的理论与实践》。
 

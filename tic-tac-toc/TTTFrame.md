@@ -40,13 +40,20 @@ input=numpy.resize(board,(1,27))
 
 
 
+补充一下：我们默认我们要写的AI是 Xs，也就是玩家甲（A）
+
+
+
 # 程序
 
-详情见TTTFrame.py，这里只给出函数原型：
+详情见TTTFrame.py（import TTTFrame as t3f），这里只给出函数原型：
 
 ~~~python
 def initBoard():
     """初始化棋盘"""
+
+def isEmpty(board):
+    """判断其棋盘是否为空"""
 
 def getEmpty(board):
     """返回棋盘中的空格"""
@@ -71,10 +78,28 @@ def makeMove(board, move, player=1):
 
 def visualize(board):
     """将棋盘可视化输出"""
+
+def rotate(board, time=1):
+    """将棋盘逆时针旋转，默认旋转一次，不改变原棋盘"""
+
+def mirror(board, axis='y'):
+    """将棋盘沿axis轴镜面对称，默认为y轴"""
 ~~~
 
 下面给出流程图：
-![流程图](/tic-tac-toe-AI/TTTFrame.PNG "流程图")
+![流程图](https://github.com/ToddZhouFeng/tic-tac-toe-AI/blob/master/tic-tac-toc/TTTFrame.PNG?raw=true "流程图")
+
+利用上面的函数，我们可以写一个双人对战的井字棋（见Player.py）。我们的目标，就是将其中一个人类方换为AI。
 
 
-可见，我们的AI将作用于`输入棋子`处。当然，这个程序也可以用来和你的朋友对战~
+
+为了充分利用每个棋盘数据，我么将对棋盘进行一个泛化处理，即对一个数据进行旋转和对称，从而得到8个数据：
+
+~~~python
+def rotate(board, time=1):
+    """将棋盘逆时针旋转，默认旋转一次，不改变原棋盘"""
+
+def mirror(board, axis='y'):
+    """将棋盘沿axis轴镜面对称，默认为y轴"""
+~~~
+
