@@ -22,4 +22,4 @@ database=[data1, data2, data3, ... ]
 data=[board, move]
 ~~~
 
-为此，我们将在Play.py的基础上，将玩家的走棋记录到一个数组中，见database.py。也就是说，你在database.py中所下的棋都会用来训练AI，所以你最好聪明一点，否则训练得到的AI会比你还笨...
+为此，我们将在Play.py的基础上，将玩家的走棋记录到一个数组中，见database.py。当你用database.py对弈时，对训练有用的数据会被记录下来。我们大概需要用这个获取40个数据，至此与井字棋有关的部分已准备完成。

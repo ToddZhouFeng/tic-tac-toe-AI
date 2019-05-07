@@ -52,7 +52,22 @@ $$
 
 $$
 \text{综上，我们可以通过求导的链式法则求出}\frac{\partial E}{\partial w_i}: \\
-\frac{\partial E}{\partial w_i} =\frac{\partial E}{\partial y}\frac{\partial y}{\partial u} \frac{\partial u}{\partial w_i} = -(r-y)y(1-y)x_i
+\frac{\partial E}{\partial w_i} =\frac{\partial E}{\partial y}\frac{\partial y}{\partial u} \frac{\partial u}{\partial w_i} = -(r-y)y(1-y)x_i\\
+\text{从而}w_i\leftarrow w_i-\eta \frac{\partial E}{\partial w_i}
 $$
 
 &emsp;&emsp;上面只是梯度下降法对应单层感知器的公式，我们可与类比推导出对应多层感知器的情况。
+
+
+
+# 实现
+
+在net文件中，通过TTTAi_train.py来获得一个神经网络，然后再通过TTTAi.py来与Ai对弈。其中TTTAi.py有几个参数可由你来定义：
+
+~~~python
+batch_size=5 #每次训练用几个数据
+iters_num=5000 #训练次数
+network=TwoLayerNet(input_size=27, hidden_size=200, output_size=9) 
+#神经网络的输入层，中间层，输出层。只能改中间层的神经数
+~~~
+
