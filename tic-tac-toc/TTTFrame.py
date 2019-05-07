@@ -86,6 +86,9 @@ def visualize(board):
     for i in range(0, 9):
         if board[2][i]==1:
             vision[i]='o'
+    for i in range(0, 9):
+        if board[0][i]==1:
+            vision[i]=str(i)
     output="---------\n "+vision[0]+" | "+vision[1]+" | "+vision[2]+" \n "\
             +"---------\n "+vision[3]+" | "+vision[4]+" | "+vision[5]+" \n "\
             +"---------\n "+vision[6]+" | "+vision[7]+" | "+vision[8]+" \n "
@@ -116,12 +119,13 @@ def mirror(board, axis='y'):
             newboard[i]=temp.flat
     return newboard
 
-"""
+'''
 board=np.array( [ [0, 0, 1, 1, 1, 1, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1]])
 visualize(board)
-newboard=mirror(board,'x')
+newboard=rotate(board)
 visualize(newboard)
-"""
+visualize(board)
+'''
 
 
 
