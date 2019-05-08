@@ -1,3 +1,4 @@
+# coding: utf-8
 import sys, os
 sys.path.append(os.pardir)
 
@@ -31,13 +32,13 @@ for i in database:
     t_train.append(target)
 """
 train_loss_list=[]
-
-learning_rate=0.1
+#下面几个是参数
+learning_rate=0.4#学习率（每次调整的权值）
+batch_size=10#每次训练使用的数据个数
+iters_num=8000#训练次数
 train_size=len(x_train)
-batch_size=5
-iters_num=8000
 
-network=TwoLayerNet(input_size=27, hidden_size=400, output_size=9)
+network=TwoLayerNet(input_size=27, hidden_size=350, output_size=9)
 all_loss=0
 total=0
 for i in range(iters_num):
@@ -75,8 +76,12 @@ for i in range(iters_num):
     
     all_loss+=loss
     total+=1
-    if total==200:
+    if total==160:
         print(i, "平均误差（越小越好）:", all_loss/total)
+        if all_loss/total<0.04:
+            learning_rate=0.1#学习率
+        elif all_loss/total>0.05 and all_loss/total<0.06:
+            learning_rate=0.2#学习率
         all_loss=0
         total=0
     train_loss_list.append(loss)

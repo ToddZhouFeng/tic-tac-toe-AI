@@ -1,3 +1,4 @@
+# coding: utf-8
 #井字棋的框架
 #井字棋的简介：井字棋（Tic-Tac-Toe），是一种在3*3格子上进行的连珠游戏，和五子棋类似，最先连成3子的一方获胜。
 
@@ -103,11 +104,35 @@ def rotate(board, time=1):
         newboard[i]=temp.flat
     return newboard
 
-def mirror(board, axis='y'):
+def rotate_move(move, time=1):
+    newmove=move+1-1
+    while(time):
+        if newmove==0:
+            newmove=6
+        elif newmove==1:
+            newmove=3
+        elif newmove==2:
+            newmove=0
+        elif newmove==3:
+            newmove=7
+        elif newmove==4:
+            return newmove
+        elif newmove==5:
+            newmove=1
+        elif newmove==6:
+            newmove=8
+        elif newmove==7:
+            newmove=5
+        elif move==8:
+            newmove=2
+        time-=1
+    return newmove
+
+def mirror(board, axis=1):
     """将棋盘沿axis轴镜面对称，默认为y轴"""
     newboard=initBoard()
     trans=np.array([[0, 0, 1], [0, 1, 0], [1, 0, 0]])
-    if axis=='y':
+    if axis=='y' or axis==1:
         for i in range(0,3):
             temp=np.reshape(board[i], (3,3))
             temp=np.dot(temp, trans)
@@ -118,6 +143,20 @@ def mirror(board, axis='y'):
             temp=np.dot(trans, temp)
             newboard[i]=temp.flat
     return newboard
+
+def mirror_move(move, axis=1):
+    newmove=move+1-1
+    if axis=='y' or axis==1:
+        if newmove==0 or newmove==3 or newmove==6:
+            newmove+=2
+        elif newmove==2 or newmove==5 or newmove==8:
+            newmove-=2
+    else:
+        if newmove==0 or newmove==1 or newmove==2:
+            newmove+=6
+        elif newmove==6 or newmove==7 or newmove==8:
+            newmove-=6
+    return newmove
 
 '''
 board=np.array( [ [0, 0, 1, 1, 1, 1, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1]])

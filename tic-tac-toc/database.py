@@ -1,3 +1,4 @@
+# coding: utf-8
 import TTTFrame as t3f
 import pickle
 import numpy as np

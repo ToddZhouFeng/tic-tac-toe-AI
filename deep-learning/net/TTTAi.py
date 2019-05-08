@@ -1,3 +1,4 @@
+# coding: utf-8
 #这是一个简单的双人对弈程序
 import sys, os
 sys.path.append(os.pardir)
@@ -31,7 +32,7 @@ while not t3f.judgeAll(board) and not t3f.isEmpty(board):
     else:
         y=network.predict(board.flatten())
         y=y.tolist()
-        print(y)
+        #print(y)
         y_copy=y[:]
         y.sort(reverse=True)
         i=0
@@ -47,5 +48,6 @@ while not t3f.judgeAll(board) and not t3f.isEmpty(board):
         player-=1
 
 print("玩家", t3f.judgeAll(board), "获胜")
+input("按下回车键退出")
    
     
